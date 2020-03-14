@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+
+<head>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <title>Badword Censor</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="form-group">
+            <h2>Send Message</h2>
+            <div class="form-control">
+                <input required type="text" id="name" class="form-control-input">
+                <label class="form-control-label" for="name">Name</label>
+                <span></span>
+            </div>
+            <div class="form-control">
+                <input required type="text" id="sendMessage" class="form-control-input">
+                <label class="form-control-label" for="sendMessage">Message</label>
+                <span></span>
+            </div>
+            <button id="send" class="btn">Send</button>
+        </div>
+
+        <div id="message">
+            <div class="row head">
+                <div class="col head">
+                    Name
+                </div>
+                <div class="col head">
+                    Message
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            &copy; Aqil Fiqran Dzi'Ul Haq
+        </div>
+    </div>
+
+</body>
+
+<script>
+    var socket = io();
+    $(function () {
+        $("#send").click(function () {
+            var message = {
+                nama: $("#name").val(),
+                message: $("#sendMessage").val()
+            };
+            postPesan(message);
+        })
+        getPesan();
+    });
+
+    socket.on('message', tambahPesan);
+
+    function tambahPesan(message) {
+        $("#message").append(
+            `<div class="row">
+            <div class"col"> ${message.nama} </div>
+            <div class="col">${message.message}</div>
+            </div>`);
+    }
+
+
+    function getPesan() {
+        $.get('http://localhost:3000/message', function (data) {
+            data.forEach(tambahPesan);
+        });
+    }
+
+    function postPesan(message) {
+        $.post('http://localhost:3000/message', message);
+    }
+</script>
+
+</html>
