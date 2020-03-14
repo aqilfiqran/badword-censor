@@ -1,6 +1,6 @@
 # badword-sensor
 
-## How to make badword sensor
+## How to make badword censor
 - Write whatever you want to censor in `badword/badword.csv`
 ![badword](./doc/badword.png)
 - Open mongoDb Compass
