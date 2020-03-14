@@ -10,7 +10,7 @@
 
 
 ## Run Program
-- Run server : `node server.js`
+- Run server : `node server.js`. Note : Don't forget `npm install`
 ![server](./doc/server.PNG)
 - Open browser and type this : `localhost:3000`
 ![link](./doc/link.PNG)
